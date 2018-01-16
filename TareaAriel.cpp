@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+#include <stdlib.h>
 #include "Tarea1.h"
 
 using namespace std;
@@ -13,4 +14,6 @@ using namespace std;
 int main()
 {
     Hora h;
+    h.obtenerHora();
+    free();
 }

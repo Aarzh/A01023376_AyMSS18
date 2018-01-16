@@ -15,8 +15,10 @@ class Hora{
 
 public:
 
+Hora(){}
 ~Hora(){}
-Hora(){
+
+void obtenerHora(){
     auto t = time(nullptr);
     auto tm = *localtime(&t);
 
