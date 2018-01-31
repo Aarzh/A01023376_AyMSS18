@@ -1,0 +1,27 @@
+@startuml
+class Invoker{
+}
+
+class Command{
+    execute();
+    undo();
+}
+
+class ConcreteCommand{
+    execute();
+    undo();
+}
+Class Client{
+
+}
+
+Class Reciver{
+    action();
+}
+
+Invoker *--|>Command
+ConcreteCommand ..|> Command
+Client --|> Reciver
+Client --|> ConcreteCommand
+ConcreteCommand ..|> Reciver
+@end
