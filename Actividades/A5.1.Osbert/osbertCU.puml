@@ -1,0 +1,14 @@
+@startuml
+
+actor Osbert
+
+actor Comprador
+
+Osbert -> (Compra)
+Osbert -> (Vende)
+Osbert -> (Busca)
+Osbert -> (Precio)
+Comprador -> (Precio)
+
+
+@enduml

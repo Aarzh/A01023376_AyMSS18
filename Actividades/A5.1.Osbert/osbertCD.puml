@@ -1,0 +1,43 @@
+@startuml
+
+mix_actor Osbert
+
+class Galeria{
+    -cuadros : Cuadro
+}
+Class Cliente{
+    +nombre:string
+    +direccion:string
+}
+
+class Cuadro{
+    - autor : string
+    - anio: int
+    - cost : float
+}
+
+class Compra{
+    +getCost()
+}
+
+class Auctions{
+    -listOfAuctions<Auction>: Auction
+    +getInfo(string author, int year) : Action
+    +busqueda(string author, int year) : Galeria
+}
+
+class Auction{
+    -nombreVendedor : string
+    +getAutor()
+    +getAnio()
+    +getCost()
+}
+
+Auctions*--|>Auction
+Galeria*--|>Cuadro
+Auction*--|>Cliente
+Auctions-->Galeria
+Cliente-->Compra
+Compra--Cuadro
+
+@end
