@@ -1,0 +1,80 @@
+@startuml
+
+mix_actor clientes
+
+class Creator{
+    +FactoryMethod(id, name, lastname, type, mail, number, street, numC, colonia)
+}
+
+class ConcreteCreator{
+    +FactoryMethod(id, name, lastname, type, mail, number, street, numC, colonia)
+}
+
+class ConcretePerson{
+
+}
+
+class Person{
+    - id : string
+    - name : string
+    - lastname : string
+    - type : string
+    - mail : string
+    - number : string
+    - street : string
+    - numC : string
+    - colonia : string
+}
+
+class Clone{
+    - id : string
+    - name : string
+    - lastname : string
+    - type : string
+    - mail : string
+    - number : string
+    - street : string
+    - numC : string
+    - colonia : string
+}
+
+class Methods{
+    +Call()
+    +SMS()
+    +Mail()
+    +MsgAll()
+}
+
+class Call{
+    - number : int
+    - name : string
+    - text : string
+}
+
+class Sms{
+    - number : int
+    - text : number
+}
+class Mail{
+    - from : string
+    - to : string
+    - subject : string
+    - text : string
+
+}
+
+class Command{
+    - obj : Person
+}
+
+Person*--|>Command
+Command--|>Methods
+Person--|>Clone
+Methods*--|>Sms
+Methods*--|>Mail
+Methods*--|>Call
+ConcreteCreator --|> Creator
+ConcreteCreator ..|> ConcretePerson
+ConcretePerson --|> Person
+Person --|> Methods
+@end

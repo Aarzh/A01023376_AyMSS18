@@ -1,0 +1,7 @@
+id,cus_name,cus_last,type_comm,mail,phone_num,calle,numero,colonia
+0,Alfred,Garza,mail,alfredgarza@miempresita.com,5555555555,avance,10,lomas altas
+1,Dmitri,García,sms,dimitrigarcia@teleco.com,6666666666,arcos,12,lomas de chapul
+2,Rose,Garrido,phone_call,rosegarrido@conf.com,2222222222,presa diaria,22,buenos aires
+3,Mary,Galicia,mail,marygalicia@keybo.com,223322335544,palma,34,las brisas frescas
+4,Joan,Galavíz,sms,joangalaviz@datas.com,9593920405,naranjo,53,el cítrico
+5,Margaret,Gamboa,phone_call,margaretgamboa,4334534554,industria textil,65,roma norte
