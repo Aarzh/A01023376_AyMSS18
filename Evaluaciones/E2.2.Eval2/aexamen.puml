@@ -1,0 +1,90 @@
+@startuml
+
+class Observer {
+    +virtual void update(Videojuego*) = 0;
+}
+
+class Proxy {
+    +ArrayVideogames* a;
+    +int indx;
+    +void operator=(string, int);
+}
+
+class Videojuego {
+    +string name;
+    +int price;
+    +int serial_number;
+    +static Videojuego* instancia;
+    +virtual Videojuego* clone() = 0;
+    +static Videojuego* getInstancia();
+    +virtual void concepcion()
+    +virtual void diseno()
+    +virtual void planificacion()
+    +virtual void produccion()
+    +virtual void pruebas()
+    +int getPrice()
+    +int setPrice(int amount)
+    +void notifyAll(Videojuego* s)
+}
+
+class Strategy{
+    +void concepto()
+    +void disenio()
+    +void plan()
+    +void produccion()
+    +void pruebas()
+}
+
+class Adventure{
+    +void concepto()
+    +void disenio()
+    +void plan()
+    +void produccion()
+    +void pruebas()
+}
+
+class Learning{
+    +void concepto()
+    +void disenio()
+    +void plan()
+    +void produccion()
+    +void pruebas()
+}
+
+class Creator {
+    -Tipo* factoryMethod()
+    -create()
+}
+
+class Inventario {
+    -Command cmd;
+    -vector<Videojuego> inv
+    -vector<Videojuego> copia
+    -Inventario() {}
+    +void insert()
+    +void deleteLast()
+    +void deleteSerialNumber(const Videojuego & obj)
+    +void deletebyName(string name)
+    +void searchElementbyName(string name)
+    +void searchElementbySerialNumber(int serial)
+    +void raisePrecio(float precio, int indx)
+    +void decreasePrecio(float precio, int indx)
+    +void printInvTotal()
+    +int swap(int el1, int el2)
+    +void sortMayorAMenor()
+    +void sortMenorAMayor()
+    +void printInventario()
+    +void searchByIndex(int idx)
+}
+
+
+Strategy --> Videojuego
+Adventure --> Videojuego
+Learning --> Videojuego
+Videojuego --> Observer
+Inventario <-- Videojuego
+Creator --* Videojuego
+Videojuego --|> Observer
+Proxy --|> Videojuego
+
+@enduml

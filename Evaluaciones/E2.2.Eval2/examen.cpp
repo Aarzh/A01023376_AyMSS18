@@ -3,7 +3,7 @@
 #include <vector>
 
 using namespace std;
-
+//SINGLETON
 class Videojuego{
 private:
     string name;
@@ -13,7 +13,7 @@ private:
 
     Videojuego();
 public:
-
+    virtual Videojuego* clone() = 0;
     static Videojuego* getInstancia();
 
     virtual void concepto() = 0;
@@ -21,7 +21,13 @@ public:
     virtual void plan() = 0;
     virtual void produccion() = 0;
     virtual void pruebas() = 0;
-};
+    int getPrice(){
+        return price;
+    }
+    int setPrice(int amount){
+        price = amount;
+        return price;
+    }
 
 Videojuego* Videojuego::instancia = 0;
 
@@ -33,8 +39,28 @@ Videojuego* Videojuego::getInstancia(){
 
     return instancia;
 }
-
-Videojuego::Videojuego(){}
+    Videojuego(){}
+};
+//FACTORY METHOD
+class Creator{
+    template <class Videojuego>
+    Videojuego* factoryMethod(){
+        return new Videojuego;
+    }
+public:
+    template <class Videojuego>
+    Videojuego* create()
+    {
+        Videojuego* temporal;
+        temporal = factoryMethod<Tipo>();
+        temporal->concepto();
+        temporal->disenio();
+        temporal->plan();
+        temporal->produccion();
+        temporal->pruebas();
+        return temporal;
+    }
+};
 
 class strategy : public Videojuego{
     public:
@@ -92,7 +118,7 @@ class learning : public Videojuego{
         cout<<"Building open beta "<<endl;
     }
 };
-
+//CLONE PATTERN
 class Prototype{
     protected:
     string type;
@@ -153,7 +179,7 @@ class learningPrototype : public Prototype{
         return new learningPrototype(*this);
     }
 };
-
+//PROXY
 class ArrayVideogames;
 class Proxy{
 private:
@@ -175,7 +201,7 @@ public:
         int size = 100;
         array = new Videojuego[size];
     }
-    Proxy operator[](Videojuego obj, int idx){
+    Proxy operator[](const Videojuego & obj, int idx){
         if(idx<0){
             cout<<"No existen indices negativos"<<endl;
         }
@@ -186,23 +212,43 @@ public:
     }
 };
 
-void Proxy:: operator=(Videojuego obj, int indx){
+void Proxy:: operator=(Videojuego * obj, int indx){
+    int precio = Videojuego::getPrice();
     if(obj->price[indx]<0){
             cout<<"No existen precios negativos"<<endl;
         }else{
             a->setGet(indx) = obj->name;
         }
 }
+//comand
+    class Command
+    {
+        Videojuego *object; //
+        void(Videojuego:: *func)();
+    public:
+        Command(Videojuego *obj = 0, void(Videojuego:: *meth)() = 0)
+        {
+            object = obj;
+            func = meth;
+        }
+        void execute()
+        {
+            (object ->*func)();
+        }
+    };
 
 class Inventario{
+    Command cmd;
+public:
+    Inventario(Command c): cmd(c){}
     vector < Videojuego > inv;
-    void insert(Videojuego obj){
+    void insert(const Videojuego & obj){
         inv.push_back(obj);
     }
     void deleteLast(){
         inv.pop_back();
     }
-    void deleteSerialNumber(Videojuego obj){
+    void deleteSerialNumber(const Videojuego & obj){
         for(int i = 0; i<inv.size; i++){
             if(inv->serial_number[i] == obj->serial_number){
                 inv.erase(inv[i]);
@@ -240,15 +286,17 @@ class Inventario{
             }
         }
     }
-
+    //COMMAND
     void raisePrecio(float precio, int indx){
         inv->price[indx] = inv->price[indx]*precio;
         cout<<"Precio final: "<<inv->price[indx]<<endl;
+        cmd.execute();
     }
 
     void decreasePrecio(float precio, int indx){
         inv->price[indx] = inv->price[indx]/precio;
         cout<<"Precio final: "<<inv->price[indx]<<endl;
+        cmd.execute();
     }
 
     void printInvTotal(){
@@ -306,54 +354,29 @@ class Inventario{
         cout<<inv[idx]<<endl;
     }
 };
-
+//OBSERVER
 class Subject {
     vector < class Observer * > views;
-    string value;
   public:
-    void attach(Observer *obs) {
-        views.push_back(obs);
-    }
-    void speak(string msg) {
-        value = msg;
-        notifyAll();
-    }
-    string getMsg() {
-        return value;
-    }
-    void notifyAll();
+    void notifyAll(Videojuego * obj);
 };
 
 class Observer {
     // 2. "dependent" functionality
-    Subject *model;
-    string denom;
   public:
-    Observer(Subject *mod, string msg) {
-        model = mod;
-        denom = msg;
-        // 4. Observers register themselves with the Subject
-        model->attach(this);
-    }
-    virtual void update() = 0;
-  protected:
-    Subject *getSubject() {
-        return model;
-    }
-    string getMsg() {
-        return denom;
-    }
+    virtual void update(Videojuego *) = 0;
 };
 
-void Subject::notifyAll() {
+void Subject::notifyAll(Videojuego * obj) {
   // 5. Publisher broadcasts
   for (int i = 0; i < views.size(); i++)
-    views[i]->update();
+    views[i]->update(obj);
 }
 
 int main(){
     Inventario a;
     int sn = 12345;
+    Videojuego (obj);
     string name = "Ariel";
     cout<<"///// Bienvenido a Jueg A.S./////"<<endl;
     cout<<"Como primer paso, debemos agregar algunos juegos a tu inventario "<<endl;
