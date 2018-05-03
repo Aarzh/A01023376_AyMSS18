@@ -1,0 +1,78 @@
+@startuml
+
+class Impresion{
+
+}
+
+class ConcreteImpression{
+
+}
+
+class ConcreteCreator{
+    +void factoryMethod()
+}
+
+class Creator{
+    +void factoryMethod()
+    +void printSimple()
+    +void printFormat()
+    +void printImgs()
+}
+
+class Client{
+
+}
+
+class Interface{
+    +Element
+}
+
+class Laser{
+    +accept(v:Visitor)
+}
+
+class Pdf{
+    +accept(v:Visitor)
+}
+
+class PostScript{
+    +accept(v:Visitor)
+}
+
+class Inyeccion{
+    +accept(v:Visitor)
+}
+
+class Visitor{
+    +visit(e : Laser)
+    +visit(e:pdf)
+    +visit(e:inyeccion)
+    +visit(e:postScript)
+}
+
+class visitorOne{
+    +visit(e : Laser)
+    +visit(e:pdf)
+    +visit(e:inyeccion)
+    +visit(e:postScript)
+}
+
+class visitorTwo{
+
+}
+
+visitorOne-->Visitor
+visitorTwo-->Visitor
+
+ConcreteImpression--|>Impresion
+ConcreteCreator-->ConcreteImpression
+ConcreteCreator-->Creator
+
+Laser-->Interface
+Pdf-->Interface
+PostScript-->Interface
+Inyeccion-->Interface
+Interface-->Client
+
+
+@enduml
